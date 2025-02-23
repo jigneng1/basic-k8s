@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-server-service
+spec:
+  selector:
+    app: todo-server
+  ports:
+  - port: 5050
+    targetPort: 5050
+    nodePort: 32020
+  type: NodePort

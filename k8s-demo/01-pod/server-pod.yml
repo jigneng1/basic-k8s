@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: todo-server
+  labels:
+    name: todo-server
+spec:
+  containers:
+  - name: todo-server
+    image: jigneng1/basic-k8s-todo-server:latest
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+      - containerPort: 5050
