@@ -16,12 +16,12 @@ spec:
         image: mariadb
         resources:
           limits:
-            memory: "500Mi"
-            cpu: "50m"
+            memory: "512Mi"
+            cpu: "100m"
         ports:
         - containerPort: 3306
         env:
           - name: MARIADB_ROOT_PASSWORD
             value: SuperSecurePassword
           - name: MARIADB_DATABASE
-            value: todo%
+            value: todo
