@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: todo-server-service
+  name: backend-nodeport
 spec:
+  type: NodePort
   selector:
-    app: todo-server
+    app: todo-backend
   ports:
   - port: 5050
     targetPort: 5050
-    nodePort: 32020
-  type: NodePort
+    nodePort: 30000
