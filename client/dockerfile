@@ -1,16 +1,27 @@
-
-FROM node:18-alpine
-
+# Stage 1: Build the Vite app
+FROM node:18 AS builder
 WORKDIR /app
 
-COPY package.json .
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-RUN npm install
+# Install dependencies
+RUN npm install --frozen-lockfile
 
+# Copy the rest of the app files
 COPY . .
 
+# ENV
+ENV VITE_REACT_APP_API_BASEURL=/api
+
+# Build the Vite app
 RUN npm run build
 
-EXPOSE 3000
+# Stage 2: Serve the app using NGINX
+FROM nginx:alpine AS runner
 
-CMD [ "npm", "run", "preview" ]
+# Copy the built files from the previous stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Expose the port NGINX runs on
+EXPOSE 80
