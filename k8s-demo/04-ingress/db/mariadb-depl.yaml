@@ -13,11 +13,11 @@ spec:
     spec:
       containers:
       - name: maria-db
-        image: mariadb:10
+        image: mariadb
         resources:
           limits:
-            memory: "128Mi"
-            cpu: "50m"
+            memory: "512Mi"
+            cpu: "100m"
         ports:
         - containerPort: 3306
         env:
