@@ -20,8 +20,8 @@ spec:
         image: mariadb:10
         resources:
           limits:
-            memory: "512Mi"
-            cpu: "50m"
+            memory: "1Gi"
+            cpu: "1"
         ports:
         - containerPort: 3306
         env:
