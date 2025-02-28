@@ -11,6 +11,10 @@ spec:
       labels:
         app: maria-db
     spec:
+      volumes:
+        - name: maria-db-volume
+          persistentVolumeClaim:
+            claimName: mariadb-pvc
       containers:
       - name: maria-db
         image: mariadb:10
@@ -22,6 +26,15 @@ spec:
         - containerPort: 3306
         env:
           - name: MARIADB_ROOT_PASSWORD
-            value: SuperSecurePassword
+            valueFrom:
+              secretKeyRef:
+                name: todo-app-secret
+                key: DB_PASSWORD
           - name: MARIADB_DATABASE
-            value: todo
+            valueFrom:
+              configMapKeyRef:
+                name: todo-app-configmap
+                key: DB_DATABASE
+        volumeMounts:
+          - name: maria-db-volume
+            mountPath: /var/lib/mysql

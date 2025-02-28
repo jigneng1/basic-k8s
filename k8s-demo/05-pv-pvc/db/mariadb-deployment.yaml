@@ -13,11 +13,11 @@ spec:
     spec:
       containers:
       - name: maria-db
-        image: mariadb
+        image: mariadb:10
         resources:
           limits:
-            memory: "512Mi"
-            cpu: "100m"
+            memory: "1Gi"
+            cpu: "1"
         ports:
         - containerPort: 3306
         env:
@@ -25,3 +25,10 @@ spec:
             value: SuperSecurePassword
           - name: MARIADB_DATABASE
             value: todo
+        volumeMounts:
+        - name: mariadb-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mariadb-persistent-storage
+        persistentVolumeClaim:
+          claimName: mariadb-pvc
